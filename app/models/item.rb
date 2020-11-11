@@ -2,6 +2,7 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :title
     validates :explanation
+    validates :image
   end
 
   VALID_PRICEL_HALF = /\A[0-9]+\z/.freeze
@@ -18,7 +19,6 @@ class Item < ApplicationRecord
   end
 
   has_one_attached :image
-  validates :image, presence: true
   belongs_to :user
 
   extend ActiveHash::Associations::ActiveRecordExtensions
