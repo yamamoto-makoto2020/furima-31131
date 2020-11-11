@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :item do
     title            { 'furima' }
-    price            { '1100' }
+    price            { 1100 }
     explanation      { 'furimanosetumei' }
     area_id          { 2 }
     category_id      { 2 }

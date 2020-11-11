@@ -28,17 +28,17 @@ describe Item do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it 'priceが300以下のとき' do
-        @item.price = '299'
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be greater than 300')
       end
       it 'priceが9,999,999以上のとき' do
-        @item.price = '10000000'
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be less than 10000000')
       end
       it 'priceが半角数字以外だと登録できない' do
-        @item.price = '１０００'
+        @item.price = 'aaa'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
@@ -48,29 +48,29 @@ describe Item do
         expect(@item.errors.full_messages).to include("Explanation can't be blank")
       end
       it 'area_idが１のとき' do
-        @item.area_id = [1]
+        @item.area_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include('Area is not a number')
+        expect(@item.errors.full_messages).to include('Area must be other than 1')
       end
       it 'category_idが１のとき' do
-        @item.category_id = [1]
+        @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include('Category is not a number')
+        expect(@item.errors.full_messages).to include('Category must be other than 1')
       end
       it 'delivery_free_idが１のとき' do
-        @item.delivery_free_id = [1]
+        @item.delivery_free_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include('Delivery free is not a number')
+        expect(@item.errors.full_messages).to include('Delivery free must be other than 1')
       end
       it 'guideline_idが１のとき' do
-        @item.guideline_id = [1]
+        @item.guideline_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include('Guideline is not a number')
+        expect(@item.errors.full_messages).to include('Guideline must be other than 1')
       end
       it 'status_idが１のとき' do
-        @item.status_id = [1]
+        @item.status_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include('Status is not a number')
+        expect(@item.errors.full_messages).to include('Status must be other than 1')
       end
       it 'user_idが紐ついてないとき' do
         @item.user = nil

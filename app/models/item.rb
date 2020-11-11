@@ -17,10 +17,6 @@ class Item < ApplicationRecord
     validates :guideline_id
   end
 
-  def was_attached?
-    image.attached?
-  end
-
   has_one_attached :image
   validates :image, presence: true
   belongs_to :user
