@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
   def new
     if user_signed_in?
       @item = Item.new
-    else 
+    else
       redirect_to root_path
     end
   end
@@ -21,6 +21,7 @@ class ItemsController < ApplicationController
   end
 
   private
+
   def item_params
     params.require(:item).permit(:title, :image, :price, :explanation, :area_id, :category_id, :delivery_free_id, :guideline_id, :status_id).merge(user_id: current_user.id)
   end
