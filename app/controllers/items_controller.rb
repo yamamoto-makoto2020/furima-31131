@@ -22,14 +22,12 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if user_signed_in? 
-      item = Item.find(params[:id])
-      if current_user.id == item.user.id
-        item.destroy
-        redirect_to root_path
-      else
-        render :index
-      end
+    item = Item.find(params[:id])
+    if current_user.id == item.user.id
+      item.destroy
+      redirect_to root_path
+    else
+      render :index
     end
   end
 
