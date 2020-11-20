@@ -1,7 +1,7 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_params, only: [:index, :create]
   def index
-    @item = Item.find(params[:item_id])
     if current_user.id != @item.user.id
       @purchase_form = PurchaseForm.new
     elsif @item.purchase.present?
@@ -12,7 +12,6 @@ class PurchasesController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @purchase_form = PurchaseForm.new(purchase_params)
     if @purchase_form.valid?
       pay_item
@@ -23,7 +22,11 @@ class PurchasesController < ApplicationController
     end
   end
 
-  private
+  private 
+
+  def set_params
+    @item = Item.find(params[:item_id])
+  end
 
   def purchase_params
     params.require(:purchase_form).permit(:postal_code, :city, :area_id, :house_number, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])

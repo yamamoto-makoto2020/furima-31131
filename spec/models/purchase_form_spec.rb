@@ -31,6 +31,10 @@ RSpec.describe PurchaseForm, type: :model do
       it 'postal_code,city,house_number,area_id,phone_number,purchase_id,tokenがある時購入できる' do
         expect(@purchase_form).to be_valid
       end
+      it 'building_nameがなくても登録できる' do
+        @purchase_form.building_name = ''
+        expect(@purchase_form).to be_valid
+      end
     end
 
     context '商品購入ができない時' do
@@ -65,9 +69,14 @@ RSpec.describe PurchaseForm, type: :model do
         expect(@purchase_form.errors.full_messages).to include("Phone number can't be blank")
       end
       it 'phone_numberが10字以下のとき' do
-        @purchase_form.phone_number = 880_123_456
+        @purchase_form.phone_number = 880123456
         @purchase_form.valid?
-        expect(@purchase_form.errors.full_messages).to include('Phone number is invalid')
+        expect(@purchase_form.errors.full_messages).to include('Phone number Input only number')
+      end
+      it 'phone_numberに(-)があると登録できない' do
+        @purchase_form.phone_number = '990-0000-0000'
+        @purchase_form.valid?
+        expect(@purchase_form.errors.full_messages).to include('Phone number Input only number')
       end
       it 'tokenが空だと登録できない' do
         @purchase_form.token = nil
