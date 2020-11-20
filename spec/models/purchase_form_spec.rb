@@ -68,8 +68,13 @@ RSpec.describe PurchaseForm, type: :model do
         @purchase_form.valid?
         expect(@purchase_form.errors.full_messages).to include("Phone number can't be blank")
       end
-      it 'phone_numberが10字以下のとき' do
+      it 'phone_numberが10字以下のとき登録できない' do
         @purchase_form.phone_number = 880123456
+        @purchase_form.valid?
+        expect(@purchase_form.errors.full_messages).to include('Phone number Input only number')
+      end
+      it 'phone_numberが12字以上のとき登録できない' do
+        @purchase_form.phone_number = '888888888888'
         @purchase_form.valid?
         expect(@purchase_form.errors.full_messages).to include('Phone number Input only number')
       end

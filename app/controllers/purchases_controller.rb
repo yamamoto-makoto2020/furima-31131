@@ -2,12 +2,10 @@ class PurchasesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_params, only: [:index, :create]
   def index
-    if current_user.id != @item.user.id
-      @purchase_form = PurchaseForm.new
-    elsif @item.purchase.present?
+    if @item.purchase.present? || (current_user.id == @item.user.id)
       redirect_to root_path
     else
-      redirect_to root_path
+      @purchase_form = PurchaseForm.new
     end
   end
 
